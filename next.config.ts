@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
   output: "export",
 
   //  basePath: el NOMBRE del repo de GitHub
-  basePath: isProd ? "/web-site" : "",
+  basePath: isProd ? "/site-001" : "",
 
   //  GitHub Pages no soporta image optimization de Next
   images: {
