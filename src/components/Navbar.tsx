@@ -9,19 +9,24 @@ const navLinks = [
   { href: "/contacto", label: "Contacto" },
 ];
 
+// GitHub Pages necesita esto para rutas correctas
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function Navbar() {
   return (
     <header className="border-b border-neutral-200 bg-white/80 backdrop-blur">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+
+        {/* Logo + texto */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="relative h-10 w-10">
-            <Image
-              src="/logo-cinnamonwebs.png"
-              alt="CinnamonWebs logo"
-              fill
-              sizes="40px"
-            />
-          </div>
+          <Image
+            src={`${basePath}/logo.png`}   // RUTA CORRECTA PARA GITHUB PAGES
+            alt="CinnamonWebs logo"
+            width={40}
+            height={40}
+            priority
+          />
+
           <div className="leading-tight">
             <p className="text-lg font-semibold text-ink">CinnamonWebs</p>
             <p className="text-xs text-neutral-500 uppercase tracking-[0.15em]">
@@ -30,6 +35,7 @@ export default function Navbar() {
           </div>
         </Link>
 
+        {/* Links */}
         <ul className="hidden gap-6 text-sm font-medium text-neutral-700 md:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
