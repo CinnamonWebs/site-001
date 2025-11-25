@@ -16,6 +16,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+// Esto apaga la “N” y el panelcito de dev tools
+  devIndicators: false,
 };
 
 export default nextConfig;
