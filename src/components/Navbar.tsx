@@ -10,6 +10,8 @@ const navLinks = [
   { href: "/contacto", label: "Contacto" },
 ];
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,10 +26,11 @@ export default function Navbar() {
         >
           <div className="relative h-10 w-10">
             <Image
-              src="/logo.png"
+              src={`${basePath}/logo.png`}
               alt="CinnamonWebs logo"
               fill
               sizes="40px"
+              priority
             />
           </div>
           <div className="leading-tight">

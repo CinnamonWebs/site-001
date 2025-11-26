@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
 
   //  basePath: el NOMBRE del repo de GitHub
   basePath,
+  
+  assetPrefix: basePath,
 
   images: { unoptimized: true },
   
