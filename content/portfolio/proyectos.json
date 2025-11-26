@@ -1,0 +1,23 @@
+﻿[
+  {
+    "name": "Estudio Contable Río",
+    "client": "Profesionales",
+    "description": "Sitio institucional claro y profesional para captar clientes desde Google.",
+    "tags": ["Institucional", "Blog", "SEO"],
+    "url": "#"
+  },
+  {
+    "name": "AromaCanela Productos Naturales",
+    "client": "Comercio",
+    "description": "Landing + catálogo simple conectada a WhatsApp.",
+    "tags": ["Landing", "Catálogo", "WhatsApp"],
+    "url": "#"
+  },
+  {
+    "name": "Consultora NovaTalento",
+    "client": "PyME",
+    "description": "Rediseño completo: claridad del mensaje, velocidad y enfoque comercial.",
+    "tags": ["Rediseño", "UX", "Optimización"],
+    "url": "#"
+  }
+]
