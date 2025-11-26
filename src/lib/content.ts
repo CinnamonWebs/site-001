@@ -80,3 +80,24 @@ export function getFooterContent(): FooterContent {
   const { data } = getMarkdownData("footer.md");
   return data as FooterContent;
 }
+
+/* ----- helper para tarifas ----- */
+export type TarifaItem = {
+  id: string;
+  precioDesde: string;
+};
+
+export type TarifasData = {
+  tarifas: TarifaItem[];
+};
+
+export function getTarifasMap(): Record<string, string> {
+  const { data } = getMarkdownData("tarifas.md");
+  const tarifasData = data as TarifasData;
+
+  const map: Record<string, string> = {};
+  for (const t of tarifasData.tarifas) {
+    map[t.id] = t.precioDesde;
+  }
+  return map;
+}

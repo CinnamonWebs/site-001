@@ -3,8 +3,8 @@ tituloPrincipal: "Servicios de desarrollo web"
 descripcionIntro: "Cada negocio es distinto, pero todos necesitan lo mismo: claridad para comunicar y facilidad para que te contacten."
 
 servicios:
-  - nombre: "Landing page de alto impacto"
-    precioDesde: "$125.000"
+  - id: "landing"
+    nombre: "Landing page de alto impacto"
     descripcion: "Una página enfocada en un solo objetivo: generar contacto o conversión."
     features:
       - "Diseño adaptado a tu marca"
@@ -12,8 +12,8 @@ servicios:
       - "Integración con WhatsApp"
       - "Contenido orientado a conversión"
 
-  - nombre: "Sitio institucional PyME"
-    precioDesde: "$250.000"
+  - id: "institucional"
+    nombre: "Sitio institucional PyME"
     descripcion: "Presencia profesional con varias secciones y contenido autoadministrable."
     features:
       - "Hasta 5 secciones"
@@ -21,8 +21,8 @@ servicios:
       - "Diseño mobile-first"
       - "Capacitación para editar contenido"
 
-  - nombre: "Sitio administrable con CMS"
-    precioDesde: "$380.000"
+  - id: "cms"
+    nombre: "Sitio administrable con CMS"
     descripcion: "Para negocios que generan contenido seguido y necesitan publicar fácil."
     features:
       - "Integración con Sanity"

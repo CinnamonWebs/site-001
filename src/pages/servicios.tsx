@@ -5,11 +5,12 @@ import {
   getMarkdownData,
   getFooterContent,
   type FooterContent,
+  getTarifasMap,
 } from "@/lib/content";
 
 type ServicioItem = {
+  id: string;
   nombre: string;
-  precioDesde?: string;
   descripcion: string;
   features: string[];
 };
@@ -20,13 +21,20 @@ type ServiciosContent = {
   servicios: ServicioItem[];
 };
 
+type ServicioConPrecio = ServicioItem & {
+  precioDesde?: string;
+};
+
 type ServicesPageProps = {
-  content: ServiciosContent;
+  content: Omit<ServiciosContent, "servicios">;
+  servicios: ServicioConPrecio[];
   footerContent: FooterContent;
 };
 
+
 export default function ServicesPage({
   content,
+  servicios,
   footerContent,
 }: ServicesPageProps) {
   return (
@@ -45,9 +53,9 @@ export default function ServicesPage({
           </p>
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {content.servicios.map((service) => (
+            {servicios.map((service) => (
               <ServiceCard
-                key={service.nombre}
+                key={service.id}
                 title={service.nombre}
                 priceFrom={service.precioDesde}
                 description={service.descripcion}
@@ -64,10 +72,23 @@ export default function ServicesPage({
 export const getStaticProps: GetStaticProps<ServicesPageProps> = async () => {
   const { data } = getMarkdownData("servicios.md");
   const footerContent = getFooterContent();
+  const tarifasMap = getTarifasMap();
+
+  const rawContent = data as ServiciosContent;
+
+  const servicios: ServicioConPrecio[] = rawContent.servicios.map(
+    (service) => ({
+      ...service,
+      precioDesde: tarifasMap[service.id],
+    })
+  );
+
+  const { servicios: _omit, ...restContent } = rawContent;
 
   return {
     props: {
-      content: data as ServiciosContent,
+      content: restContent,
+      servicios,
       footerContent,
     },
   };
