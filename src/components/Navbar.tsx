@@ -27,14 +27,14 @@ export default function Navbar() {
           <div className="relative h-10 w-10">
             <Image
               src={`${basePath}/logo.png`}
-              alt="CinnamonWebs logo"
+              alt="CinnamonWeb logo"
               fill
               sizes="40px"
               priority
             />
           </div>
           <div className="leading-tight">
-            <p className="text-lg font-semibold text-ink">CinnamonWebs</p>
+            <p className="text-lg font-semibold text-ink">CinnamonWeb</p>
             <p className="text-xs text-neutral-500 uppercase tracking-[0.15em]">
               Web Development
             </p>

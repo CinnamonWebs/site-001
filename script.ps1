@@ -16,7 +16,7 @@ heroSubtitle: "Creamos sitios rápidos y claros para PyMEs, comercios y profesio
 heroCtaPrimary: "Quiero mi sitio web"
 heroCtaSecondary: "Ver trabajos"
 
-introTitle: "Lo que hacemos en CinnamonWebs"
+introTitle: "Lo que hacemos en CinnamonWeb"
 introText: "Diseñamos sitios claros, rápidos y alineados con tus objetivos de negocio. Sin humo, sin complicaciones."
 ---
 '@
@@ -96,11 +96,11 @@ Write-Host "Creado: content\portfolio\proyectos.json" -ForegroundColor Green
 # ---------- nosotros.md ----------
 $nosotros = @'
 ---
-titulo: "Detrás de CinnamonWebs"
+titulo: "Detrás de CinnamonWeb"
 intro: "Hacer sitios web útiles, sin tecnicismos al pedo."
 ---
 
-CinnamonWebs nace para ayudar a PyMEs, comercios y profesionales que necesitan presencia online, pero no tienen tiempo para pelearse con agencias enormes o soluciones sobredimensionadas.
+CinnamonWeb nace para ayudar a PyMEs, comercios y profesionales que necesitan presencia online, pero no tienen tiempo para pelearse con agencias enormes o soluciones sobredimensionadas.
 
 Trabajo con un enfoque simple: entender tu negocio, tus clientes y tus objetivos. A partir de ahí, definimos qué tipo de sitio necesitás y cómo comunicar tu mensaje con claridad.
 
@@ -113,7 +113,7 @@ Write-Host "Creado: content\nosotros.md" -ForegroundColor Green
 # ---------- footer.md ----------
 $footer = @'
 ---
-mensajeLegal: "© 2025 CinnamonWebs. Todos los derechos reservados."
+mensajeLegal: "© 2025 CinnamonWeb. Todos los derechos reservados."
 mensajePais: "Desarrollado en Argentina 🇦🇷"
 ctaBoton: "Agenda una llamada"
 ---

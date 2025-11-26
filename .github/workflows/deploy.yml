@@ -1,4 +1,4 @@
-name: Deploy CinnamonWebs to GitHub Pages
+name: Deploy CinnamonWeb to GitHub Pages
 
 on:
   push:

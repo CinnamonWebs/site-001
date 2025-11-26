@@ -1,36 +1,35 @@
 import Layout from "@/components/Layout";
 import ProjectCard from "@/components/ProjectCard";
+import { GetStaticProps } from "next";
+import {
+  getJSONData,
+  getFooterContent,
+  type FooterContent,
+} from "@/lib/content";
 
-const projects = [
-  {
-    name: "Estudio Contable Río",
-    client: "Profesionales",
-    description:
-      "Sitio institucional para un estudio contable que necesitaba comunicar servicios de forma clara y captar clientes por Google.",
-    tags: ["Sitio institucional", "Blog", "SEO básico"],
-    url: "#",
-  },
-  {
-    name: "Tienda Natural AromaCanela",
-    client: "Comercio minorista",
-    description:
-      "Landing page + catálogo simple para una tienda de productos naturales que vende por WhatsApp e Instagram.",
-    tags: ["Landing", "Catálogo", "Integración WhatsApp"],
-    url: "#",
-  },
-  {
-    name: "Consultora NovaTalento",
-    client: "PyME",
-    description:
-      "Rediseño completo del sitio anterior, con foco en autoridad, claridad y generación de contactos.",
-    tags: ["Rediseño", "UX", "Optimización de velocidad"],
-    url: "#",
-  },
-];
+type Project = {
+  name: string;
+  client: string;
+  description: string;
+  tags?: string[];
+  url?: string;
+};
 
-export default function PortfolioPage() {
+type PortfolioPageProps = {
+  projects: Project[];
+  footerContent: FooterContent;
+};
+
+export default function PortfolioPage({
+  projects,
+  footerContent,
+}: PortfolioPageProps) {
   return (
-    <Layout title="Portfolio" description="Algunos proyectos y casos de CinnamonWebs.">
+    <Layout
+      title="Portfolio"
+      description="Algunos proyectos y casos de CinnamonWeb."
+      footerContent={footerContent}
+    >
       <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-12">
           <h1 className="text-3xl font-semibold text-ink md:text-4xl">
@@ -52,3 +51,15 @@ export default function PortfolioPage() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps<PortfolioPageProps> = async () => {
+  const projects = getJSONData<Project[]>("portfolio/proyectos.json");
+  const footerContent = getFooterContent();
+
+  return {
+    props: {
+      projects,
+      footerContent,
+    },
+  };
+};

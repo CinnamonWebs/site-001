@@ -1,6 +1,17 @@
-import Link from "next/link";
+// src/components/Hero.tsx
+type HeroProps = {
+  title: string;
+  subtitle: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+};
 
-export default function Hero() {
+export default function Hero({
+  title,
+  subtitle,
+  ctaPrimary,
+  ctaSecondary,
+}: HeroProps) {
   return (
     <section className="bg-sand">
       <div className="mx-auto flex max-w-6xl flex-col items-start gap-10 px-4 py-16 md:flex-row md:items-center md:py-24">
@@ -9,28 +20,25 @@ export default function Hero() {
             desarrollo web para negocios reales
           </p>
           <h1 className="mb-4 text-3xl font-bold text-ink md:text-4xl lg:text-5xl">
-            Sitios web que le dan sabor a tu{" "}
-            <span className="text-cinnamon">negocio</span>.
+            {title}
           </h1>
           <p className="mb-6 max-w-xl text-base text-neutral-700 md:text-lg">
-            Creamos sitios rápidos, modernos y fáciles de usar para PyMEs,
-            comercios y profesionales independientes. Tu web deja de ser un
-            gasto y pasa a ser una herramienta de venta.
+            {subtitle}
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <Link
+            <a
               href="/contacto"
               className="rounded-full bg-cinnamon px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-cinnamon-dark"
             >
-              Quiero mi sitio web
-            </Link>
-            <Link
+              {ctaPrimary}
+            </a>
+            <a
               href="/portfolio"
               className="rounded-full border border-neutral-300 px-6 py-2.5 text-sm font-semibold text-ink transition hover:border-cinnamon hover:text-cinnamon"
             >
-              Ver trabajos
-            </Link>
+              {ctaSecondary}
+            </a>
           </div>
 
           <p className="mt-4 text-xs text-neutral-500">
@@ -38,6 +46,7 @@ export default function Hero() {
           </p>
         </div>
 
+        {/* El panel de ejemplo lo dejo igual que antes */}
         <div className="flex-1">
           <div className="rounded-2xl border border-dashed border-neutral-300 bg-white/80 p-6 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
@@ -48,7 +57,7 @@ export default function Hero() {
             </h2>
             <p className="mt-2 text-sm text-neutral-700">
               Rediseñamos el sitio de una PyME y logramos que los contactos
-              desde la web crezcan un 40% en tres meses. Diseño claro, mensaje
+              desde la web crezcan en pocos meses. Diseño claro, mensaje
               directo y carga rápida.
             </p>
           </div>

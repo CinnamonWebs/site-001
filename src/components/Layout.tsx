@@ -2,15 +2,16 @@ import Head from "next/head";
 import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import WhatsAppButton from "./WhatsAppButton";
+import type { FooterContent } from "@/lib/content";
 
 type LayoutProps = {
   children: ReactNode;
   title?: string;
   description?: string;
+  footerContent: FooterContent;
 };
 
-const defaultTitle = "CinnamonWebs | Desarrollo web para PyMEs y profesionales";
+const defaultTitle = "CinnamonWeb | Desarrollo web para PyMEs y profesionales";
 const defaultDescription =
   "Sitios web rápidos, modernos y optimizados para PyMEs, pequeños comercios y profesionales independientes.";
 
@@ -18,8 +19,9 @@ export default function Layout({
   children,
   title,
   description,
+  footerContent,
 }: LayoutProps) {
-  const pageTitle = title ? `${title} | CinnamonWebs` : defaultTitle;
+  const pageTitle = title ? `${title} | CinnamonWeb` : defaultTitle;
 
   return (
     <>
@@ -35,9 +37,7 @@ export default function Layout({
       <div className="min-h-screen flex flex-col bg-sand text-ink">
         <Navbar />
         <main className="flex-1">{children}</main>
-        <Footer />
-        {/* Botón flotante de WhatsApp */}
-        <WhatsAppButton phone="5491165835046" />
+        <Footer content={footerContent} />
       </div>
     </>
   );

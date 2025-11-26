@@ -4,6 +4,6 @@ heroSubtitle: "Creamos sitios rápidos y claros para PyMEs, comercios y profesio
 heroCtaPrimary: "Quiero mi sitio web"
 heroCtaSecondary: "Ver trabajos"
 
-introTitle: "Lo que hacemos en CinnamonWebs"
+introTitle: "Lo que hacemos en CinnamonWeb"
 introText: "Diseñamos sitios claros, rápidos y alineados con tus objetivos de negocio. Sin humo, sin complicaciones."
 ---

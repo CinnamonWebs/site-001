@@ -1,10 +1,17 @@
 import Layout from "@/components/Layout";
+import { GetStaticProps } from "next";
+import { getFooterContent, type FooterContent } from "@/lib/content";
 
-export default function ContactPage() {
+type ContactPageProps = {
+  footerContent: FooterContent;
+};
+
+export default function ContactPage({ footerContent }: ContactPageProps) {
   return (
     <Layout
       title="Contacto"
-      description="Contactá a CinnamonWebs para hablar sobre tu próximo sitio web."
+      description="Contactá a CinnamonWeb para hablar sobre tu próximo sitio web."
+      footerContent={footerContent}
     >
       <section className="bg-sand">
         <div className="mx-auto max-w-3xl px-4 py-12">
@@ -98,3 +105,13 @@ export default function ContactPage() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps<ContactPageProps> = async () => {
+  const footerContent = getFooterContent();
+
+  return {
+    props: {
+      footerContent,
+    },
+  };
+};
