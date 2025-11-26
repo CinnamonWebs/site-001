@@ -1,6 +1,6 @@
 ﻿[
   {
-    "name": "Estudio Contable Río",
+    "name": "Estudio Contable Del Río",
     "client": "Profesionales",
     "description": "Sitio institucional claro y profesional para captar clientes desde Google.",
     "tags": ["Institucional", "Blog", "SEO"],
@@ -18,6 +18,13 @@
     "client": "PyME",
     "description": "Rediseño completo: claridad del mensaje, velocidad y enfoque comercial.",
     "tags": ["Rediseño", "UX", "Optimización"],
+    "url": "#"
+  },
+  {
+    "name": "Ristretto - caffè",
+    "client": "Cafetería",
+    "description": "Landing + carta de productos.",
+    "tags": ["Landing", "Carta"],
     "url": "#"
   }
 ]

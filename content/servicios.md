@@ -4,7 +4,7 @@ descripcionIntro: "Cada negocio es distinto, pero todos necesitan lo mismo: clar
 
 servicios:
   - nombre: "Landing page de alto impacto"
-    precioDesde: "$"
+    precioDesde: "$125.000"
     descripcion: "Una página enfocada en un solo objetivo: generar contacto o conversión."
     features:
       - "Diseño adaptado a tu marca"
@@ -13,7 +13,7 @@ servicios:
       - "Contenido orientado a conversión"
 
   - nombre: "Sitio institucional PyME"
-    precioDesde: "$$"
+    precioDesde: "$250.000"
     descripcion: "Presencia profesional con varias secciones y contenido autoadministrable."
     features:
       - "Hasta 5 secciones"
@@ -22,7 +22,7 @@ servicios:
       - "Capacitación para editar contenido"
 
   - nombre: "Sitio administrable con CMS"
-    precioDesde: "$$+"
+    precioDesde: "$380.000"
     descripcion: "Para negocios que generan contenido seguido y necesitan publicar fácil."
     features:
       - "Integración con Sanity"
