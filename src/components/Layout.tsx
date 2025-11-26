@@ -5,6 +5,8 @@ import Footer from "./Footer";
 import type { FooterContent } from "@/lib/content";
 import WhatsAppButton from "./WhatsAppButton";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 type LayoutProps = {
   children: ReactNode;
   title?: string;

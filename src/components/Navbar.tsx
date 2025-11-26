@@ -35,8 +35,8 @@ export default function Navbar() {
           </div>
           <div className="leading-tight">
             <p className="text-lg font-semibold text-ink">CinnamonWeb</p>
-            <p className="text-xs text-neutral-500 uppercase tracking-[0.15em]">
-              Web Development
+            <p className="text-xs text-neutral-500 uppercase tracking-[0.22em]">
+                Developments
             </p>
           </div>
         </Link>
