@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import type { FooterContent } from "@/lib/content";
+import WhatsAppButton from "./WhatsAppButton";
 
 type LayoutProps = {
   children: ReactNode;
@@ -38,6 +39,8 @@ export default function Layout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer content={footerContent} />
+        {/* Botón flotante de WhatsApp */}
+        <WhatsAppButton phone="5491165835046" />
       </div>
     </>
   );
