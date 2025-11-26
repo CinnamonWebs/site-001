@@ -4,6 +4,17 @@
 
 /* Estilo base CinnamonWebs */
 
+/* Tamaño de fuente base */
+html {
+  font-size: 15px; /* mobile / tablet */
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 17px; /* desktop un poco más grande */
+  }
+}
+
 html,
 body {
   @apply bg-sand text-ink antialiased;
