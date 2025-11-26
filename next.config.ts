@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const isProd = process.env.NODE_ENV === "production";
 
-const basePath = isProd ? '/site-001' : '';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""; //isProd ? '/site-001' : '';
 
 const nextConfig: NextConfig = {
   //  opcional, si lo estabas usando
