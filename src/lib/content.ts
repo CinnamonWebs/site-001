@@ -14,7 +14,10 @@ export function getMarkdownData(relativePath: string) {
 
 export function getJSONData<T = unknown>(relativePath: string): T {
   const fullPath = path.join(CONTENT_DIR, relativePath);
-  const fileContent = fs.readFileSync(fullPath, "utf8");
+  let fileContent = fs.readFileSync(fullPath, "utf8");
+
+  // Eliminar BOM si existe y espacios en blanco al inicio
+  fileContent = fileContent.replace(/^\uFEFF/, "").trim();
   return JSON.parse(fileContent) as T;
 }
 
