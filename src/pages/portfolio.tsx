@@ -36,9 +36,9 @@ export default function PortfolioPage({
             Algunos proyectos y casos
           </h1>
           <p className="mt-3 max-w-2xl text-sm text-neutral-700 md:text-base">
-            Aunque muchos proyectos son confidenciales, estos ejemplos reflejan
+            Aunque muchos proyectos son confidenciales, estos ejemplos ficticios, reflejan
             el tipo de resultados que podés esperar en cuanto a claridad,
-            velocidad y enfoque comercial.
+            agilidad y enfoque comercial.
           </p>
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">

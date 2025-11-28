@@ -19,8 +19,8 @@ export default function ContactPage({ footerContent }: ContactPageProps) {
             Contáctame
           </h1>
           <p className="mt-3 text-sm text-neutral-700 md:text-base">
-            Contame brevemente qué tipo de negocio tenés y qué esperás de tu
-            sitio web. Te respondo con una propuesta clara, sin compromiso.
+            Contanos brevemente qué tipo de negocio tenés y qué esperás de tu
+            sitio web. Te respondemos con una propuesta clara, sin compromiso.
           </p>
 
           <div className="mt-8 grid gap-8 md:grid-cols-[2fr,1fr]">
@@ -94,9 +94,9 @@ export default function ContactPage({ footerContent }: ContactPageProps) {
                   Si preferís, podés mandar un mensaje directo por WhatsApp con
                   una breve descripción de tu proyecto.
                 </p>
-                <p className="mt-3 text-sm font-semibold text-cinnamon">
+                {/* <p className="mt-3 text-sm font-semibold text-cinnamon">
                   WhatsApp: +54 9 XX XXXX-XXXX
-                </p>
+                </p> */}
               </div>
             </aside>
           </div>

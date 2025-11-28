@@ -24,6 +24,7 @@ type HomeContent = {
   introTitle: string;
   introText: string;
   homeServices: HomeServiceContent[];
+  msjFinalServicios: string;
 };
 
 type HomeServiceWithPrice = HomeServiceContent & {
@@ -64,12 +65,16 @@ export default function HomePage({
               <ServiceCard
                 key={service.id}
                 title={service.title}
-                priceFrom={service.priceFrom}
+                /* priceFrom={service.priceFrom} */
                 description={service.description}
                 features={service.features}
               />
             ))}
           </div>
+          <p className="mt-2 max-w-2xl text-sm text-neutral-700 md:text-base">
+            {content.msjFinalServicios}
+          </p>
+
         </div>
       </section>
     </Layout>

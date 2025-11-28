@@ -42,7 +42,7 @@ export default function Hero({
           </div>
 
           <p className="mt-4 text-xs text-neutral-500">
-            Sin tecnicismos raros, sin humo. Explicamos todo en criollo.
+            Sin discurso confuso, ni sobre diseños costosos. Con explicaciones simples y directas.
           </p>
         </div>
 
@@ -50,14 +50,14 @@ export default function Hero({
         <div className="flex-1">
           <div className="rounded-2xl border border-dashed border-neutral-300 bg-white/80 p-6 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
-              ejemplo de resultado
+              ejemplo de caso típico
             </p>
             <h2 className="mt-2 text-lg font-semibold text-ink">
               “Necesitamos algo mejor que nuestra página vieja…”
             </h2>
             <p className="mt-2 text-sm text-neutral-700">
-              Rediseñamos el sitio de una PyME y logramos que los contactos
-              desde la web crezcan en pocos meses. Diseño claro, mensaje
+              Rediseñamos el sitio de una PyME, para que los contactos
+              desde la web crezcan progresivamente. Diseño claro, mensaje
               directo y carga rápida.
             </p>
           </div>
