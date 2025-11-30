@@ -30,6 +30,10 @@ export type BlogPostMeta = {
   excerpt: string;
 };
 
+export type BlogPost = BlogPostMeta & {
+  content: string; // markdown completo del post
+};
+
 export function getAllBlogPosts(): BlogPostMeta[] {
   const postsDir = path.join(CONTENT_DIR, "blog", "posts");
   const files = fs.readdirSync(postsDir).filter((f) => f.endsWith(".md"));
@@ -42,6 +46,7 @@ export function getAllBlogPosts(): BlogPostMeta[] {
 
     const title = (data.title as string) ?? slug;
     const date = (data.date as string) ?? "";
+
     const excerptFromContent = content
       .replace(/\n+/g, " ")
       .trim()
@@ -56,7 +61,7 @@ export function getAllBlogPosts(): BlogPostMeta[] {
   return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export function getBlogPostBySlug(slug: string) {
+export function getBlogPostBySlug(slug: string): BlogPost {
   const postsDir = path.join(CONTENT_DIR, "blog", "posts");
   const fullPath = path.join(postsDir, `${slug}.md`);
   const fileContent = fs.readFileSync(fullPath, "utf8");
@@ -65,7 +70,14 @@ export function getBlogPostBySlug(slug: string) {
   const title = (data.title as string) ?? slug;
   const date = (data.date as string) ?? "";
 
-  return { slug, title, date, content };
+  const excerptFromContent = content
+    .replace(/\n+/g, " ")
+    .trim()
+    .slice(0, 200);
+
+  const excerpt = (data.excerpt as string) ?? excerptFromContent;
+
+  return { slug, title, date, excerpt, content };
 }
 
 /* -------- FOOTER -------- */

@@ -1,66 +1,64 @@
-import Layout from "@/components/Layout";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Layout from "@/components/Layout";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   getAllBlogPosts,
   getBlogPostBySlug,
   getFooterContent,
+  type BlogPost,
   type FooterContent,
 } from "@/lib/content";
 
 type BlogPostPageProps = {
-  title: string;
-  date: string;
-  body: string;
+  post: BlogPost;
   footerContent: FooterContent;
 };
 
-export default function BlogPostPage({
-  title,
-  date,
-  body,
-  footerContent,
-}: BlogPostPageProps) {
-  const formattedDate = date
-    ? new Date(date).toLocaleDateString("es-AR", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-      })
-    : "";
+function formatDate(dateStr: string) {
+  if (!dateStr) return "";
+  return new Date(dateStr).toLocaleDateString("es-AR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+}
 
-  const paragraphs = body
-    .split("\n")
-    .map((p) => p.trim())
-    .filter(Boolean);
-
+export default function BlogPostPage({ post, footerContent }: BlogPostPageProps) {
   return (
-    <Layout title={title} footerContent={footerContent}>
-      <section className="bg-white">
+    <Layout
+      title={post.title}
+      description={post.excerpt}
+      footerContent={footerContent}
+    >
+      <main className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-12">
-          {formattedDate && (
-            <p className="text-xs uppercase tracking-[0.18em] text-neutral-400">
-              {formattedDate}
-            </p>
-          )}
+          <p className="text-xs uppercase tracking-wide text-neutral-500">
+            {formatDate(post.date)}
+          </p>
           <h1 className="mt-2 text-3xl font-semibold text-ink md:text-4xl">
-            {title}
+            {post.title}
           </h1>
 
-          <div className="mt-6 space-y-4 text-sm leading-relaxed text-neutral-800 md:text-base">
-            {paragraphs.map((p, idx) => (
-              <p key={idx}>{p}</p>
-            ))}
-          </div>
+          <article className="prose prose-neutral mt-6 max-w-none">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {post.content}
+            </ReactMarkdown>
+          </article>
         </div>
-      </section>
+      </main>
     </Layout>
   );
 }
 
+// Genera las rutas estáticas a partir de los .md
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = getAllBlogPosts();
+
   return {
-    paths: posts.map((post) => ({ params: { slug: post.slug } })),
+    paths: posts.map((post) => ({
+      params: { slug: post.slug },
+    })),
     fallback: false,
   };
 };
@@ -74,9 +72,7 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({
 
   return {
     props: {
-      title: post.title,
-      date: post.date,
-      body: post.content,
+      post,
       footerContent,
     },
   };
