@@ -1,6 +1,16 @@
 ﻿---
 title: "¿Necesito un sitio web si ya tengo Instagram?"
 date: "2025-11-10"
+
+imagenes:
+  - id: "cover"
+    src: "/assets/blog/pst-001/img01.png"
+    alt: "Emprendedora mirando su sitio web y su cuenta de Instagram"
+
+links:
+  - id: "cta_contacto"
+    href: "/contacto"
+    label: "Quiero que mi sitio venda más"
 ---
 
 Muchos emprendedores arrancan fuerte en redes sociales y piensan que con eso alcanza. Instagram te da visibilidad, interacción rápida y una vidriera atractiva. **Pero ojo**: no reemplaza un sitio web propio.

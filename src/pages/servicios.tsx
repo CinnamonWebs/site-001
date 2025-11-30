@@ -1,65 +1,73 @@
+// src/pages/servicios.tsx
 import Layout from "@/components/Layout";
 import ServiceCard from "@/components/ServiceCard";
 import { GetStaticProps } from "next";
 import {
   getMarkdownData,
   getFooterContent,
-  type FooterContent,
   getTarifasMap,
+  type FooterContent,
 } from "@/lib/content";
 
-type ServicioItem = {
+type ServicioContent = {
   id: string;
   nombre: string;
   descripcion: string;
   features: string[];
 };
 
-type ServiciosContent = {
-  tituloPrincipal: string;
-  descripcionIntro: string;
-  servicios: ServicioItem[];
+type ServiciosPageContent = {
+  titulo?: string;
+  title?: string;
+  descripcion?: string;
+  description?: string;
+  servicios?: ServicioContent[];
 };
 
-type ServicioConPrecio = ServicioItem & {
-  precioDesde?: string;
+type ServicioConPrecio = ServicioContent & {
+  precioDesde: string | null;
 };
 
-type ServicesPageProps = {
-  content: Omit<ServiciosContent, "servicios">;
+type ServiciosPageProps = {
+  content: ServiciosPageContent;
   servicios: ServicioConPrecio[];
   footerContent: FooterContent;
 };
 
-
-export default function ServicesPage({
+export default function ServiciosPage({
   content,
   servicios,
   footerContent,
-}: ServicesPageProps) {
+}: ServiciosPageProps) {
+  const pageTitle = content.titulo ?? content.title ?? "Servicios";
+  const pageDescription = content.descripcion ?? content.description ?? "";
+
   return (
     <Layout
-      title={content.tituloPrincipal}
-      description={content.descripcionIntro}
+      title={pageTitle}
+      description={pageDescription}
       footerContent={footerContent}
     >
-      <section className="bg-sand">
+      <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-12">
           <h1 className="text-3xl font-semibold text-ink md:text-4xl">
-            {content.tituloPrincipal}
+            {pageTitle}
           </h1>
-          <p className="mt-3 max-w-2xl text-sm text-neutral-700 md:text-base">
-            {content.descripcionIntro}
-          </p>
+          {pageDescription && (
+            <p className="mt-3 max-w-2xl text-sm text-neutral-700 md:text-base">
+              {pageDescription}
+            </p>
+          )}
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {servicios.map((service) => (
               <ServiceCard
                 key={service.id}
                 title={service.nombre}
-                priceFrom={service.precioDesde}
                 description={service.descripcion}
+                priceFrom={service.precioDesde}
                 features={service.features}
+                showPrice={true} //  acá SÍ mostramos precios
               />
             ))}
           </div>
@@ -69,25 +77,19 @@ export default function ServicesPage({
   );
 }
 
-export const getStaticProps: GetStaticProps<ServicesPageProps> = async () => {
-  const { data } = getMarkdownData("servicios.md");
+export const getStaticProps: GetStaticProps<ServiciosPageProps> = async () => {
+  const { data } = getMarkdownData<ServiciosPageContent>("servicios.md");
   const footerContent = getFooterContent();
   const tarifasMap = getTarifasMap();
 
-  const rawContent = data as ServiciosContent;
-
-  const servicios: ServicioConPrecio[] = rawContent.servicios.map(
-    (service) => ({
-      ...service,
-      precioDesde: tarifasMap[service.id],
-    })
-  );
-
-  const { servicios: _omit, ...restContent } = rawContent;
+  const servicios: ServicioConPrecio[] = (data.servicios ?? []).map((svc) => ({
+    ...svc,
+    precioDesde: tarifasMap[svc.id] ?? null,
+  }));
 
   return {
     props: {
-      content: restContent,
+      content: data,
       servicios,
       footerContent,
     },

@@ -5,111 +5,243 @@ import matter from "gray-matter";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
-export function getMarkdownData(relativePath: string) {
+/* ---------- Tipos genéricos para TODO el contenido MD ---------- */
+
+export type ContentImage = {
+  id: string;
+  src: string;
+  alt: string;
+};
+
+export type ContentLink = {
+  id: string;
+  href: string;
+  label?: string;
+};
+
+export type MarkdownFrontmatterBase = {
+  title?: string;
+  description?: string;
+  imagenes?: ContentImage[];
+  links?: ContentLink[];
+  [key: string]: any;
+};
+
+export function getMarkdownData<
+  T extends MarkdownFrontmatterBase = MarkdownFrontmatterBase
+>(relativePath: string): { data: T; content: string } {
   const fullPath = path.join(CONTENT_DIR, relativePath);
   const fileContent = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContent);
-  return { data, content };
+
+  const normalised: MarkdownFrontmatterBase = {
+    ...data,
+  };
+
+  if (normalised.imagenes && Array.isArray(normalised.imagenes)) {
+    normalised.imagenes = normalised.imagenes
+      .slice(0, 2)
+      .map((img) => ({
+        id: img.id ?? "",
+        src: img.src ?? "",
+        alt: img.alt ?? "",
+      }))
+      .filter((img) => img.src);
+  }
+
+  if (normalised.links && Array.isArray(normalised.links)) {
+    normalised.links = normalised.links
+      .map((link) => ({
+        id: link.id ?? "",
+        href: link.href ?? "#",
+        label: link.label,
+      }))
+      .filter((link) => link.href);
+  }
+
+  return {
+    data: normalised as T,
+    content,
+  };
 }
 
 export function getJSONData<T = unknown>(relativePath: string): T {
   const fullPath = path.join(CONTENT_DIR, relativePath);
   let fileContent = fs.readFileSync(fullPath, "utf8");
 
-  // Eliminar BOM si existe y espacios en blanco al inicio
   fileContent = fileContent.replace(/^\uFEFF/, "").trim();
   return JSON.parse(fileContent) as T;
 }
 
-/* -------- BLOG -------- */
+/* ---------- TARIFAS ---------- */
+
+export type TarifasMap = Record<string, string>;
+
+export function getTarifasMap(): TarifasMap {
+  const { data } = getMarkdownData("tarifas.md");
+  const map: TarifasMap = {};
+
+  // Variante array: tarifas: [ { id, precioDesde / precio / price / monto / valor } ]
+  const maybeArray = (data as any).tarifas;
+  if (Array.isArray(maybeArray)) {
+    for (const item of maybeArray) {
+      if (!item) continue;
+      const id =
+        (item as any).id ??
+        (item as any).clave ??
+        (item as any).slug;
+      const price =
+        (item as any).precio ??
+        (item as any).precioDesde ??
+        (item as any).price ??
+        (item as any).monto ??
+        (item as any).valor;
+
+      if (typeof id === "string" && typeof price === "string") {
+        map[id] = price;
+      }
+    }
+  }
+
+  // Variante claves de primer nivel: plan_basico, plan_pro, etc.
+  Object.entries(data).forEach(([key, value]) => {
+    if (
+      key === "title" ||
+      key === "descripcion" ||
+      key === "description" ||
+      key === "tarifas"
+    ) {
+      return;
+    }
+
+    if (typeof value === "string") {
+      map[key] = value;
+    } else if (value && typeof value === "object") {
+      const v: any = value;
+      const price =
+        v.precio ??
+        v.precioDesde ??
+        v.price ??
+        v.monto ??
+        v.valor;
+      if (typeof price === "string") {
+        map[key] = price;
+      }
+    }
+  });
+
+  return map;
+}
+
+/* ---------- BLOG ---------- */
 
 export type BlogPostMeta = {
   slug: string;
   title: string;
   date: string;
   excerpt: string;
+  coverImage?: ContentImage;
 };
 
 export type BlogPost = BlogPostMeta & {
-  content: string; // markdown completo del post
+  content: string;
 };
 
+const BLOG_POSTS_DIR = path.join(CONTENT_DIR, "blog", "posts");
+
 export function getAllBlogPosts(): BlogPostMeta[] {
-  const postsDir = path.join(CONTENT_DIR, "blog", "posts");
-  const files = fs.readdirSync(postsDir).filter((f) => f.endsWith(".md"));
+  const files = fs.readdirSync(BLOG_POSTS_DIR);
 
-  const posts: BlogPostMeta[] = files.map((filename) => {
-    const slug = filename.replace(/\.md$/, "");
-    const fullPath = path.join(postsDir, filename);
-    const fileContent = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContent);
+  return files
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => {
+      const slug = file.replace(/\.md$/, "");
 
-    const title = (data.title as string) ?? slug;
-    const date = (data.date as string) ?? "";
+      const { data, content } = getMarkdownData<
+        MarkdownFrontmatterBase & {
+          title?: string;
+          date?: string;
+          excerpt?: string;
+          coverImage?: ContentImage;
+        }
+      >(path.join("blog", "posts", file));
 
-    const excerptFromContent = content
-      .replace(/\n+/g, " ")
-      .trim()
-      .slice(0, 200);
+      const rawExcerpt =
+        data.excerpt ??
+        content.split("\n\n")[0] ??
+        "";
 
-    const excerpt = (data.excerpt as string) ?? excerptFromContent;
+      const excerpt = rawExcerpt.replace(/\n/g, " ").slice(0, 200).trim();
 
-    return { slug, title, date, excerpt };
-  });
+      const imagenes = data.imagenes ?? [];
+      const coverImage =
+        imagenes[0] ?? data.coverImage ?? undefined;
 
-  // Ordenar por fecha descendente (más nuevo primero), si hay fecha
-  return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+      return {
+        slug,
+        title: data.title ?? "",
+        date: data.date ?? "",
+        excerpt,
+        coverImage,
+      };
+    })
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost {
-  const postsDir = path.join(CONTENT_DIR, "blog", "posts");
-  const fullPath = path.join(postsDir, `${slug}.md`);
-  const fileContent = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContent);
+  const mdPath = path.join("blog", "posts", `${slug}.md`);
 
-  const title = (data.title as string) ?? slug;
-  const date = (data.date as string) ?? "";
+  const { data, content } = getMarkdownData<
+    MarkdownFrontmatterBase & {
+      title: string;
+      date: string;
+      excerpt?: string;
+      coverImage?: ContentImage;
+    }
+  >(mdPath);
 
-  const excerptFromContent = content
-    .replace(/\n+/g, " ")
-    .trim()
-    .slice(0, 200);
+  const rawExcerpt =
+    data.excerpt ??
+    content.split("\n\n")[0] ??
+    "";
 
-  const excerpt = (data.excerpt as string) ?? excerptFromContent;
+  const excerpt = rawExcerpt.replace(/\n/g, " ").slice(0, 200).trim();
 
-  return { slug, title, date, excerpt, content };
+  const imagenes = data.imagenes ?? [];
+  const coverImage =
+    imagenes[0] ?? data.coverImage ?? undefined;
+
+  return {
+    slug,
+    title: data.title,
+    date: data.date,
+    excerpt,
+    coverImage,
+    content,
+  };
 }
 
-/* -------- FOOTER -------- */
+/* ---------- FOOTER ---------- */
 
-export type FooterContent = {
+type FooterFrontmatter = MarkdownFrontmatterBase & {
+  mensajeLegal?: string;
+  mensajePais?: string;
+  ctaBoton?: string;
+};
+
+export type FooterContent = MarkdownFrontmatterBase & {
   mensajeLegal: string;
   mensajePais: string;
   ctaBoton: string;
 };
 
 export function getFooterContent(): FooterContent {
-  const { data } = getMarkdownData("footer.md");
-  return data as FooterContent;
-}
+  const { data } = getMarkdownData<FooterFrontmatter>("footer.md");
 
-/* ----- helper para tarifas ----- */
-export type TarifaItem = {
-  id: string;
-  precioDesde: string;
-};
-
-export type TarifasData = {
-  tarifas: TarifaItem[];
-};
-
-export function getTarifasMap(): Record<string, string> {
-  const { data } = getMarkdownData("tarifas.md");
-  const tarifasData = data as TarifasData;
-
-  const map: Record<string, string> = {};
-  for (const t of tarifasData.tarifas) {
-    map[t.id] = t.precioDesde;
-  }
-  return map;
+  return {
+    ...data,
+    mensajeLegal: data.mensajeLegal ?? "",
+    mensajePais: data.mensajePais ?? "",
+    ctaBoton: data.ctaBoton ?? "",
+  };
 }
