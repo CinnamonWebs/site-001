@@ -89,7 +89,7 @@ export default function ServiciosPage({
           {imagenSection && imagenSection.src && (
             <div className="mt-14 flex justify-center">
               {/* Ajustá el porcentaje acá: w-[60%], w-[50%], w-[80%], etc. */}
-              <div className="relative w-[40%] aspect-[16/9] overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm">
+              <div className="relative w-[50%] aspect-[16/9] overflow-hidden rounded-2xl">
                 <Image
                   src={`${basePath}${imagenSection.src}`}
                   alt={imagenSection.alt}

@@ -53,15 +53,22 @@ export default function AboutPage({
           <h1 className="text-3xl font-semibold text-ink md:text-4xl">
             {frontmatter.titulo}
           </h1>
+
           <p className="mt-3 text-sm text-neutral-700 md:text-base">
             {frontmatter.intro}
           </p>
 
+          <div className="mt-5 space-y-6 text-sm leading-relaxed text-neutral-700 md:text-base">
+            {paragraphs.map((p, idx) => (
+              <p key={idx}>{p}</p>
+            ))}
+          </div>
+
           {/* Imagen centrada, ajustable por % */}
           {imagen?.src && (
-            <div className="mt-10 flex justify-center">
+            <div className="mt-2 flex justify-center">
               {/* Ajustá el porcentaje acá → w-[60%], w-[50%], w-[70%], etc. */}
-              <div className="relative w-[60%] aspect-[16/9] overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm">
+              <div className="relative w-[80%] aspect-[11/8] overflow-hidden rounded-3xl">
                 <Image
                   src={`${basePath}${imagen.src}`}
                   alt={imagen.alt}
@@ -73,12 +80,7 @@ export default function AboutPage({
             </div>
           )}
 
-          <div className="mt-10 space-y-6 text-sm leading-relaxed text-neutral-700 md:text-base">
-            {paragraphs.map((p, idx) => (
-              <p key={idx}>{p}</p>
-            ))}
-          </div>
-        </div>
+        </div>          
       </section>
     </Layout>
   );

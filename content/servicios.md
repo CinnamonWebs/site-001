@@ -3,7 +3,7 @@ tituloPrincipal: "Servicios de desarrollo web"
 descripcionIntro: "Cada negocio es distinto, pero todos necesitan lo mismo: claridad para comunicar y facilidad para que te contacten."
 
 imagen:
-  src: "/assets/servicios/servicios001.png"
+  src: "/assets/servicios/servicios005.png"
   alt: "Diseño profesional"
 
 servicios:

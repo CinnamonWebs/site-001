@@ -3,7 +3,7 @@ titulo: "Detrás de CinnamonWeb"
 intro: "Hacer sitios web útiles, profesionales y simples."
 
 imagen:
-  src: "/assets/nosotros/nosotros005.png"
+  src: "/assets/nosotros/nosotros006.png"
   alt: "Concepto Cinnamon Web"
 ---
 

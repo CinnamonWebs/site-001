@@ -136,7 +136,7 @@ export default function HomePage({
           {/* Columna "caso típico" */}
           <div className="md:w-1/2">
             {heroImageCase && heroImageCase.src && (
-              <div className="ml-auto max-w-md rounded-3xl border border-dashed border-neutral-300 bg-white/90 p-5 text-xs text-neutral-700 shadow-sm">
+              <div className="ml-auto max-w-md rounded-3xl border border-dashed border-neutral-400 p-5 text-xs text-neutral-700 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
                   ejemplo de caso típico
                 </p>
