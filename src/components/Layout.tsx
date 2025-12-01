@@ -42,7 +42,7 @@ export default function Layout({
         <main className="flex-1">{children}</main>
         <Footer content={footerContent} />
         {/* Botón flotante de WhatsApp */}
-        <WhatsAppButton phone="5491165835046" />
+        <WhatsAppButton phone="54911xxxxxxx" />
       </div>
     </>
   );

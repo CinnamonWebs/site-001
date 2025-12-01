@@ -6,7 +6,9 @@ import {
   getMarkdownData,
   getFooterContent,
   type FooterContent,
+  type ContentImage,
 } from "@/lib/content";
+import Image from "next/image";
 
 type HomeServiceContent = {
   id: string;
@@ -35,6 +37,9 @@ type HomeContentFrontmatter = {
   title?: string;
   descripcion?: string;
   description?: string;
+
+  // Imágenes definidas en home.md
+  imagenes?: ContentImage[];
 };
 
 type HomeProps = {
@@ -42,6 +47,8 @@ type HomeProps = {
   homeServices: HomeServiceContent[];
   footerContent: FooterContent;
 };
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function HomePage({
   content,
@@ -80,6 +87,9 @@ export default function HomePage({
     content.serviciosDescripcion ??
     "Diseñamos sitios claros, ágiles y alineados con tus objetivos de negocio.";
 
+  // Usamos solo una imagen para el caso típico
+  const heroImageCase = content.imagenes?.[0];
+
   return (
     <Layout
       title={heroTitle}
@@ -89,6 +99,7 @@ export default function HomePage({
       {/* HERO */}
       <section className="bg-[#f5efe6]">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-14 md:flex-row md:items-center">
+          {/* Columna texto */}
           <div className="md:w-1/2">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-700">
               {heroOverline}
@@ -122,19 +133,37 @@ export default function HomePage({
             </p>
           </div>
 
+          {/* Columna "caso típico" */}
           <div className="md:w-1/2">
-            <div className="rounded-3xl border border-dashed border-neutral-300 bg-white/70 p-6 text-sm text-neutral-800">
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500">
-                EJEMPLO DE CASO TÍPICO
-              </p>
-              <p className="mt-3 text-base font-semibold text-ink">
-                “Necesitamos algo mejor que nuestra página vieja…”
-              </p>
-              <p className="mt-2 text-sm text-neutral-700">
-                Rediseñamos el sitio de una PyME para que los contactos desde la web
-                crezcan progresivamente. Diseño claro, mensaje directo y carga rápida.
-              </p>
-            </div>
+            {heroImageCase && heroImageCase.src && (
+              <div className="ml-auto max-w-md rounded-3xl border border-dashed border-neutral-300 bg-white/90 p-5 text-xs text-neutral-700 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                  ejemplo de caso típico
+                </p>
+                <h2 className="mt-2 text-lg font-semibold text-ink">
+                  “Necesitamos algo mejor que nuestra página vieja…”
+                </h2>
+
+                <div className="mt-3 flex justify-center">
+                  {/* Cambiá 70% por el porcentaje que quieras */}
+                  <div className="relative w-[70%] aspect-[3/2] overflow-hidden rounded-2xl bg-white">
+                    <Image
+                      src={`${basePath}${heroImageCase.src}`}
+                      alt={heroImageCase.alt}
+                      fill
+                      sizes="(min-width: 768px) 30vw, 80vw"
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+
+                <p className="mt-3 text-sm text-neutral-700">
+                  Rediseñamos el sitio de una PyME para que los contactos
+                  desde la web crezcan progresivamente. Diseño claro,
+                  mensaje directo y carga rápida.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -155,7 +184,7 @@ export default function HomePage({
                 key={s.id}
                 title={s.titulo}
                 description={s.descripcion}
-                showPrice={false} // 👈 en Home NO mostramos precios
+                showPrice={false}
               />
             ))}
           </div>
