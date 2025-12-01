@@ -231,6 +231,7 @@ type FooterFrontmatter = MarkdownFrontmatterBase & {
 
 export type FooterContent = MarkdownFrontmatterBase & {
   mensajeLegal: string;
+  mail?: string;
   mensajePais: string;
   ctaBoton: string;
 };
