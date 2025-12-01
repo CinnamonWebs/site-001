@@ -241,6 +241,7 @@ export function getFooterContent(): FooterContent {
   return {
     ...data,
     mensajeLegal: data.mensajeLegal ?? "",
+    mail: data.mail ?? "",
     mensajePais: data.mensajePais ?? "",
     ctaBoton: data.ctaBoton ?? "",
   };
