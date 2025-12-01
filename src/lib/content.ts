@@ -225,13 +225,14 @@ export function getBlogPostBySlug(slug: string): BlogPost {
 
 type FooterFrontmatter = MarkdownFrontmatterBase & {
   mensajeLegal?: string;
+  mail?: string;
   mensajePais?: string;
   ctaBoton?: string;
 };
 
 export type FooterContent = MarkdownFrontmatterBase & {
   mensajeLegal: string;
-  mail?: string;
+  mail: string;
   mensajePais: string;
   ctaBoton: string;
 };
