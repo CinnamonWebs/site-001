@@ -23,16 +23,16 @@ export default function WhatsAppButton({
       {/* Círculo blanco exterior (como en la app) */}
       <div
         className="
-          flex h-16 w-16 items-center justify-center
-          rounded-full bg-white
-          shadow-[0_4px_12px_rgba(0,0,0,0.18)]
+          flex h-12 w-12 items-center justify-center
+          rounded-full
+          shadow-[0_4px_15px_rgba(0,0,0,2)]
         "
       >
         {/* Círculo verde interior */}
         <div
           className="
             flex h-12 w-12 items-center justify-center
-            rounded-full bg-[#25D366] text-white
+            rounded-full bg-[#08f25e] text-white
           "
         >
           {/* Ícono WhatsApp bien centrado */}
